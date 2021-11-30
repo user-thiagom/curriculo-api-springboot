@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -38,8 +39,8 @@ public class LocalizacaoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Localizacao> create(@RequestBody Localizacao obj){
-		obj = service.create(obj);
+	public ResponseEntity<Localizacao> create(@RequestParam(value = "curriculo", defaultValue = "0") Integer id_cur, @RequestBody Localizacao obj){
+		obj = service.create(id_cur,obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}

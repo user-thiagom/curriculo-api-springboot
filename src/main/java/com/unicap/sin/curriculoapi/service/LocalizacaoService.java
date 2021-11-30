@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.unicap.sin.curriculoapi.exceptions.DataIntegratyViolationException;
 import com.unicap.sin.curriculoapi.exceptions.ObjectNotFoundException;
+import com.unicap.sin.curriculoapi.model.Curriculo;
 import com.unicap.sin.curriculoapi.model.Localizacao;
 import com.unicap.sin.curriculoapi.repository.LocalizacaoRepository;
 
@@ -16,6 +17,9 @@ import com.unicap.sin.curriculoapi.repository.LocalizacaoRepository;
 public class LocalizacaoService {
 	@Autowired
 	LocalizacaoRepository repository;
+	
+	@Autowired
+	CurriculoService curriculoService;
 
 	public Localizacao findById(Integer id) {
 		Optional<Localizacao> obj = repository.findById(id);
@@ -26,17 +30,23 @@ public class LocalizacaoService {
 		return repository.findAll();
 	}
 
-	public Localizacao create(Localizacao obj) {
+	public Localizacao create(Integer id_cur ,Localizacao obj) {
 		obj.setId(null);
+		Curriculo curriculo = curriculoService.findById(id_cur);
+		obj.setCurriculo(curriculo);
 		return repository.save(obj);
 	}
 
 	public Localizacao update(Integer id, Localizacao obj) {
 		Localizacao newObj = findById(id);
-		newObj.setCidade(obj.getCidade());
-		newObj.setPais(obj.getPais());
-		newObj.setUf(obj.getUf());
+		updateData(newObj,obj);
 		return repository.save(newObj);
+	}
+
+	private void updateData(Localizacao newObj, Localizacao obj) {
+		newObj.setCidade(newObj.getCidade().equals(obj.getCidade()) ? newObj.getCidade() : obj.getCidade());
+		newObj.setPais(newObj.getPais().equals(obj.getPais()) ? newObj.getPais() : obj.getPais());
+		newObj.setUf(newObj.getUf().equals(obj.getUf()) ? newObj.getUf() : obj.getUf());
 	}
 
 	public void delete(Integer id) {
