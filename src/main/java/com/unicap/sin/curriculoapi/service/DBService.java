@@ -53,7 +53,8 @@ public class DBService {
 		
 		Formacao for1 = new Formacao(null, "Unicap", "Sistemas para Internet", "2020", "2021", cu2);
 		Formacao for2 = new Formacao(null, "Ibratec", "Analise e desenvolvimento de sistemas", "2019", "2021", cu1);
-		this.formacaoRepository.saveAll(Arrays.asList(for1,for2));
+		Formacao for3 = new Formacao(null, "UFPE", "Biologia", "2015", "2019", cu1);
+		this.formacaoRepository.saveAll(Arrays.asList(for1,for2,for3));
 		
 		Localizacao loc1 = new Localizacao(null, "Brasil", "Pernambuco", "Ipojuca", cu1);
 		Localizacao loc2 = new Localizacao(null, "Brasil", "Pernambuco", "Ipojuca", cu2);
