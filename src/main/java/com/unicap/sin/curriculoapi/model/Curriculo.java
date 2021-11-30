@@ -44,10 +44,10 @@ public class Curriculo implements Serializable{
 	@Column(length = 50, nullable = false)
 	private String email;
 	
-	@Column(length = 50, nullable = false)
+	@Column(length = 50, nullable = true)
 	private String linkedin;
 	
-	@Column(length = 50, nullable = false)
+	@Column(length = 50, nullable = true)
 	private String github;
 	
 	@OneToOne(mappedBy = "curriculo")
