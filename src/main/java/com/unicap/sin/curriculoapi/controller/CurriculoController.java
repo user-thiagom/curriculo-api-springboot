@@ -41,10 +41,10 @@ public class CurriculoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Curriculo> create(@RequestBody Curriculo obj){
+	public ResponseEntity<Integer> create(@RequestBody Curriculo obj){
 		obj = service.create(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
+		return ResponseEntity.created(uri).body(obj.getId());
 	}
 	
 	@PutMapping(value = "/{id}")
